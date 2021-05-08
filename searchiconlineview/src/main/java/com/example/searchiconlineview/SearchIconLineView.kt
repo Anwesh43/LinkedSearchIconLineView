@@ -212,4 +212,13 @@ class SearchIconLineView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : SearchIconLineView {
+            val view : SearchIconLineView = SearchIconLineView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
