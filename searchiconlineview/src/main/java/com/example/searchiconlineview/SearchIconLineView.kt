@@ -18,10 +18,10 @@ val colors : Array<Int> = arrayOf(
     Color.parseColor(it)
 }.toTypedArray()
 val parts : Int = 4
-val scGap : Float = 0.02f
-val lineSizeFactor1 : Float = 6.9f
-val rFactor : Float = 15.8f
-val lineSizeFactor2 : Float = 3.9f
+val scGap : Float = 0.02f / parts
+val lineSizeFactor1 : Float = 7.9f
+val rFactor : Float = 19.8f
+val lineSizeFactor2 : Float = 2.3f
 val delay : Long = 20
 val strokeFactor : Float = 90f
 val backColor : Int = Color.parseColor("#BDBDBD")
@@ -45,9 +45,9 @@ fun Canvas.drawSearchIconLine(scale : Float, w : Float, h : Float, paint : Paint
     save()
     rotate(-45f * sf3)
     drawLine(0f, 0f, 0f, -lineSize1 * sf1, paint)
-    drawArc(RectF(-r, -lineSize1 - r, r, -lineSize1 + r), 90f, 360f * sf2,false, paint)
+    drawArc(RectF(-r, -lineSize1 - 2 * r, r, -lineSize1), 90f, 360f * sf2,false, paint)
     restore()
-    drawLine(0f, 0f, -lineSize2 * sf4, 0f, paint)
+    drawLine(-lineSize2 / 10, 0f, -lineSize2 / 10  - lineSize2 * sf4, 0f, paint)
     restore()
 }
 
@@ -132,7 +132,7 @@ class SearchIconLineView(ctx : Context) : View(ctx) {
         private var prev : SILNode? = null
 
         init {
-
+            addNeighbor()
         }
 
         fun addNeighbor() {
