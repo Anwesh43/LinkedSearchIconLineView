@@ -19,8 +19,8 @@ val colors : Array<Int> = arrayOf(
 }.toTypedArray()
 val parts : Int = 4
 val scGap : Float = 0.02f / parts
-val lineSizeFactor1 : Float = 7.9f
-val rFactor : Float = 19.8f
+val lineSizeFactor1 : Float = 12.9f
+val rFactor : Float = 30.8f
 val lineSizeFactor2 : Float = 2.3f
 val delay : Long = 20
 val strokeFactor : Float = 90f
@@ -81,7 +81,7 @@ class SearchIconLineView(ctx : Context) : View(ctx) {
     data class State(var scale : Float = 0f, var dir : Float = 0f, var prevScale : Float = 0f) {
 
         fun update(cb : (Float) -> Unit) {
-            scale += scGap
+            scale += scGap * dir
             if (Math.abs(scale - prevScale) > 1) {
                 scale = prevScale + dir
                 dir = 0f
