@@ -1,0 +1,3 @@
+include ':searchiconlineview'
+include ':app'
+rootProject.name = "LinkedSearchIconLineView"
