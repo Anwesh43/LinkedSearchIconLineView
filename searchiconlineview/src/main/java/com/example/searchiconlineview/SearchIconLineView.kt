@@ -24,6 +24,7 @@ val rFactor : Float = 15.8f
 val lineSizeFactor2 : Float = 3.9f
 val delay : Long = 20
 val strokeFactor : Float = 90f
+val backColor : Int = Color.parseColor("#BDBDBD")
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
@@ -164,7 +165,7 @@ class SearchIconLineView(ctx : Context) : View(ctx) {
         }
     }
 
-    data class SquareIconLine(var i : Int) {
+    data class SearchIconLine(var i : Int) {
 
         private var curr : SILNode = SILNode(0)
         private var dir : Int = 1
@@ -184,6 +185,29 @@ class SearchIconLineView(ctx : Context) : View(ctx) {
 
         fun startUpdating(cb : () -> Unit) {
             curr.startUpdating(cb)
+        }
+    }
+
+    data class Renderer(var view : SearchIconLineView) {
+
+        private val animator : Animator = Animator(view)
+        private val sil : SearchIconLine = SearchIconLine(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            sil.draw(canvas, paint)
+            animator.animate {
+                sil.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            sil.startUpdating {
+                animator.start()
+            }
         }
     }
 }
